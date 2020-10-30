@@ -14,7 +14,7 @@ function useTodosAndSearch(props) {
     
     const filterQuery = ref("")
     const filteredTodos = computed(() => {
-      if (filterQuery.value) return todos.value
+      if (!filterQuery.value) return todos.value
       return todos.value.filter(
         todo => todo.title.includes(filterQuery.value)
       )
