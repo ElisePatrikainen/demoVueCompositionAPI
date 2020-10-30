@@ -1,15 +1,15 @@
 <template>
   <img alt="Vue logo" style="height: 50px" src="./assets/logo.png" />
-  <HelloWorld user="1" />
+  <UserTodos user="1" />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import UserTodos from './components/UserTodos.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    UserTodos
   }
 }
 </script>
