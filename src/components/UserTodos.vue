@@ -27,11 +27,13 @@ export default {
       )
     }
   },
+  watch: {
+    user: 'getUserTodos'
+  },
   methods: {
-    getUserTodos() {
-      fetch('http://jsonplaceholder.typicode.com/todos?userId=1')
-        .then(res => res.json())
-        .then(data => this.todos = data)
+    async getUserTodos() {
+      const res = await fetch('http://jsonplaceholder.typicode.com/todos?userId=1')
+      this.todos = await res.json()
     }
   },
   mounted() {
@@ -55,7 +57,7 @@ export default {
     color: white;
     position: relative;
     margin: 1rem;
-  }
+  } 
 
   .items {
     color: white;
