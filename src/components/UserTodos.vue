@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import {ref, toRefs, onMounted, computed} from 'vue'
+import {ref, toRefs, onMounted, computed, watch} from 'vue'
 
 export default {
   name: 'UserTodos',
