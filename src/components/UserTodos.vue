@@ -8,36 +8,44 @@
 </template>
 
 <script>
+import {ref, toRefs, onMounted, computed} from 'vue'
+
 export default {
   name: 'UserTodos',
   props: {
     user: String
   },
-  data() {
-    return {
-      todos: [],
-      filterQuery: ""
+  setup(props) {
+    const { user } = toRefs(props)
+    console.log(user.value)
+    const todos = ref([])
+    const getUserTodos = async () => {
+        const res = await fetch('http://jsonplaceholder.typicode.com/todos?userId=1')
+        todos.value = await res.json()
     }
-  },
-  computed: {
-    filteredTodos() {
-      if (!this.filterQuery) return this.todos
-      return this.todos.filter(
-        todo => todo.title.includes(this.filterQuery)
+    onMounted(getUserTodos)
+    watch(getUserTodos)
+    
+    const filterQuery = ref("")
+    const filteredTodos = computed(() => {
+      if (filterQuery.value) return todos.value
+      return todos.value.filter(
+        todo => todo.title.includes(filterQuery.value)
       )
+    })
+
+    return {
+      todos,
+      getUserTodos,
+      filterQuery,
+      filteredTodos
     }
-  },
-  watch: {
-    user: 'getUserTodos'
   },
   methods: {
     async getUserTodos() {
       const res = await fetch('http://jsonplaceholder.typicode.com/todos?userId=1')
       this.todos = await res.json()
     }
-  },
-  mounted() {
-    this.getUserTodos()
   }
 }
 </script>
